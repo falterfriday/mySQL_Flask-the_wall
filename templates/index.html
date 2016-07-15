@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+======================================================
+______    _ _           ______    _     _             
+|  ___|  | | |          |  ___|  (_)   | |            
+| |_ __ _| | |_ ___ _ __| |_ _ __ _  __| | __ _ _   _ 
+|  _/ _` | | __/ _ \ '__|  _| '__| |/ _` |/ _` | | | |
+| || (_| | | ||  __/ |  | | | |  | | (_| | (_| | |_| |
+\_| \__,_|_|\__\___|_|  \_| |_|  |_|\__,_|\__,_|\__, |
+                                                 __/ |
+                                                |___/ 
+======================================================
+Owner Name: Patrick A. Todd
+Profile: https://www.github.com/falterfriday
+Blog: https://falterfriday.wordpress.com/
+Version: 0.2
+Description: Never Stop Learning
+======================================================
+-->
+<html>
+<head>
+	<title>Login and Registration</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<!-- TOP -->
+<div class="wrapper">
+	<div class="top">
+	<form action="/login" method='POST'>
+		Email:<input type="email" name="login_email">
+		Password:<input type="password" name="login_password">
+		<input type="submit" name="login" value="login" class="btn btn-primary">
+	</form>	
+	</div>
+	<br>
+<!-- BOTTOM -->
+	<div class="bottom">
+	<form action='/process' method='POST'>
+		First Name: <input type="text" name="first_name"><br>
+		Last Name: <input type="text" name="last_name"><br>
+		Email Address: <input type="text" name="email"><br>
+		Password: <input type="password" name="password"><br>
+		Password: <input type="password" name="password_conf"><br>
+	</div>	
+		<input class="btn btn-primary submits" type="submit" name="submit" value="submit">
+	</form>
+	<form action="clear">
+		<input type="submit" name="clear" value="reset" class="btn btn-danger submits" type="button">
+	</form>
+	{% with messages = get_flashed_messages() %}
+		{% if messages %}
+		  {% for message in messages %}
+		    <p>{{message | safe}}</p>
+		  {% endfor %}
+		{% endif %}
+	{% endwith %}
+</div>
+</body>
+</html>
