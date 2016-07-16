@@ -1,44 +1,55 @@
 .wrapper {
 	display: inline-block;
-	border: solid lightgray 1px;
+	/*border: solid lightgray 1px;*/
 	height: auto;
-	width: auto;
-	border-radius: 6px;
-	margin: 10px 10px;
+	width: 100%;
 	padding-bottom: 5px;
 }
+h1 {
+	text-align: left;
+	display: inline;
+	vertical-align: top;
+	margin: 0px 30% 0px 0px;
+}
 .top {
-	background-color: lightgray;
-	border-radius: 5px 5px 0 0;
-	width: 500px;
-	padding: 10px;
-}
-hr {
-	width: 40%;
-}
-.bottom {
-	width: 50%;
-	border-radius: 5px;
-}
-form {
-	display: inline-block;
+	color: white;
+	background-color: #5c5c8a;
+	width: 100%;
+	padding: 10px 30px;
 	text-align: right;
+}
+
+.bottom {
+	width: auto;
+	text-align: right;
+	padding-right: 88px;
+}
+h2 {
+	margin-right: 111px;
+	color: #5c5c8a;
 }
 input {
 	margin-bottom: 2px;
+}
+.signup {
+	color: #5c5c8a;
+}
+form {
+	display: inline-block;
+	vertical-align: center;
 }
 .error {
 	color: white;
 	display: inline-block;
 	background-color: #db524b;
-	width: 500px;
+	width: 100%;
 	text-align: center;
 }
 .success {
 	color: white;
 	display: inline-block;
 	background-color: #58b958;
-	width: 500px;
+	width: 100%;
 	/*border-radius: 5px;*/
 	text-align: center;
 }
