@@ -6,7 +6,7 @@ EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9\.\+_-]+@[a-zA-Z0-9\._-]+\.[a-zA-Z]*$')
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
-mysql = MySQLConnector(app,'registration')
+mysql = MySQLConnector(app,'wall')
 app.secret_key = "dhrtdgrdh5dyyjugkmyjfdrd!"
 
 @app.route('/', methods=['GET'])
@@ -14,6 +14,23 @@ def index():
 	if not session.has_key('display'):
 		session['display'] = False
 	return render_template("index.html", display=session['display'])
+
+@app.route('/login', methods=['POST'])
+def login():
+	email = request.form['login_email']
+	password = request.form['login_password']
+	user_query = "SELECT * FROM users WHERE email = :email LIMIT 1"
+	query_data = { 'email': email }
+	user = mysql.query_db(user_query, query_data)
+	print query_data
+	print user
+	if len(user) < 1:
+		flash('<div class="error">invalid credentials</div>')
+	elif bcrypt.check_password_hash(user[0]['pw_hash'], password):
+		return render_template("wall.html")
+	else:
+		flash('<div class="error">invalid credentials</div>')
+	return redirect('/')
 
 @app.route('/process', methods=['POST'])
 def submit():
@@ -42,22 +59,7 @@ def submit():
 		session['display'] = True
 	return redirect('/')
 
-@app.route('/login', methods=['POST'])
-def login():
-	email = request.form['login_email']
-	password = request.form['login_password']
-	user_query = "SELECT * FROM users WHERE email = :email LIMIT 1"
-	query_data = { 'email': email }
-	user = mysql.query_db(user_query, query_data)
-	print query_data
-	print user
-	if len(user) < 1:
-		flash('<div class="error">invalid credentials</div>')
-	elif bcrypt.check_password_hash(user[0]['pw_hash'], password):
-		flash('<div class="success">login successful</div>')
-	else:
-		flash('<div class="error">invalid credentials</div>')
-	return redirect('/')
+
 
 @app.route('/clear')
 def clear():
