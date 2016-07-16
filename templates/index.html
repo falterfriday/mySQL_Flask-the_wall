@@ -19,7 +19,7 @@ Description: Never Stop Learning
 -->
 <html>
 <head>
-	<title>Login and Registration</title>
+	<title>The Wall</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
@@ -28,27 +28,30 @@ Description: Never Stop Learning
 <!-- TOP -->
 <div class="wrapper">
 	<div class="top">
+	<h1>The Wall</h1>
 	<form action="/login" method='POST'>
-		Email:<input type="email" name="login_email">
-		Password:<input type="password" name="login_password">
-		<input type="submit" name="login" value="login" class="btn btn-primary">
+		Email: <input type="email" name="login_email">
+		Password: <input type="password" name="login_password">
+		<input type="submit" name="wall" value="login" class="btn btn-primary">
 	</form>	
 	</div>
 	<br>
 <!-- BOTTOM -->
 	<div class="bottom">
-	<form action='/process' method='POST'>
-		First Name: <input type="text" name="first_name"><br>
-		Last Name: <input type="text" name="last_name"><br>
-		Email Address: <input type="text" name="email"><br>
-		Password: <input type="password" name="password"><br>
-		Password: <input type="password" name="password_conf"><br>
-	</div>	
-		<input class="btn btn-primary submits" type="submit" name="submit" value="submit">
-	</form>
-	<form action="clear">
+		<form class="signup" action='/process' method='POST'>
+		<h2>Sign Up!</h2><br>
+			First Name: <input type="text" name="first_name"><br>
+			Last Name: <input type="text" name="last_name"><br>
+			Email: <input type="text" name="email"><br>
+			Password: <input type="password" name="password"><br>
+			Password: <input type="password" name="password_conf"><br>
+			
+			<input class="btn btn-primary submits" type="submit" name="submit" value="submit">
+		</form>
+	</div>
+	<!-- <form action="clear">
 		<input type="submit" name="clear" value="reset" class="btn btn-danger submits" type="button">
-	</form>
+	</form> -->
 	{% with messages = get_flashed_messages() %}
 		{% if messages %}
 		  {% for message in messages %}
