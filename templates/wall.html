@@ -1,1 +1,55 @@
-THE EFFING WALL
+<!DOCTYPE html>
+<!--
+======================================================
+______    _ _           ______    _     _             
+|  ___|  | | |          |  ___|  (_)   | |            
+| |_ __ _| | |_ ___ _ __| |_ _ __ _  __| | __ _ _   _ 
+|  _/ _` | | __/ _ \ '__|  _| '__| |/ _` |/ _` | | | |
+| || (_| | | ||  __/ |  | | | |  | | (_| | (_| | |_| |
+\_| \__,_|_|\__\___|_|  \_| |_|  |_|\__,_|\__,_|\__, |
+                                                 __/ |
+                                                |___/ 
+======================================================
+Owner Name: Patrick A. Todd
+Profile: https://www.github.com/falterfriday
+Blog: https://falterfriday.wordpress.com/
+Version: 0.2
+Description: Never Stop Learning
+======================================================
+-->
+<html>
+<head>
+	<title>The Wall</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylewall.css') }}">
+</head>
+<body>
+<!-- TOP -->
+<div class="wrapper">
+	<div class="top">
+		<h1>The Wall</h1>
+		<form action="/logout">
+			<input class="btn btn-danger" type="submit" name="logout" value="log off">
+		</form>
+	</div>
+<br>
+	<div class="mid">
+		<h3>Post a message</h3>
+		<form action="/post" method="POST">
+			<input class="textbox" type="text" name="message"><br>
+			<input class="btn btn-primary" type="submit" name="submit" value="post a message">
+		</form>
+	</div>
+<!-- 	{% with messages = get_flashed_messages() %}
+		{% if messages %}
+		  {% for message in messages %} -->
+		    {{message | safe}}
+<!-- 		  {% endfor %}
+		{% endif %}
+	{% endwith %} -->
+
+<!-- FOOTER -->
+<div class="bottom"></div>
+</body>
+</html>
