@@ -22,17 +22,17 @@ def login():
 	user_query = "SELECT * FROM users WHERE email = :email LIMIT 1"
 	query_data = { 'email': email }
 	user = mysql.query_db(user_query, query_data)
-	print query_data
-	print user
 	if len(user) < 1:
 		flash('<div class="error">invalid credentials</div>')
 	elif bcrypt.check_password_hash(user[0]['pw_hash'], password):
-		return render_template("wall.html")
+		session['id'] = user[0]['id']
+		print "your session id is:", session['id']
+		return redirect('/wall')
 	else:
 		flash('<div class="error">invalid credentials</div>')
 	return redirect('/')
 
-@app.route('/process', methods=['POST'])
+@app.route('/register', methods=['POST'])
 def submit():
 	if len(request.form['first_name']) < 2 or len(request.form['last_name']) < 2:
 		flash('<div class="error">name required</div>')
@@ -59,10 +59,57 @@ def submit():
 		session['display'] = True
 	return redirect('/')
 
+@app.route('/post', methods=['POST'])
+def post():
+	if len(request.form['message']) > 0:
+		text = request.form['message']
+		query = "INSERT INTO messages (message, created_at, updated_at, users_id) VALUES ( :message, NOW(), NOW(), :users_id )"
+		data = {
+		'message': text,
+		'users_id':session['id']
+		}
+		mysql.query_db(query, data)
+		return redirect('/wall')
+
+	else:
+		return redirect('/wall')
+
+@app.route('/wall', methods=['GET'])
+def messages():
+	print "session id is: ",session['id']
+	
+	name_and_message_query = "SELECT concat_ws(' ',first_name,last_name), users_id, messages.message, date_format(messages.created_at, '%M %D %Y') AS date, messages.created_at FROM users JOIN messages ON messages.users_id = users.id ORDER BY created_at DESC"
+	name_and_message = mysql.query_db(name_and_message_query)
+	for x in range(0,len(name_and_message)):
+		flash('<div class="message"><h4>' +name_and_message[x]["concat_ws(' ',first_name,last_name)"]+ ' - ' +name_and_message[x]['date']+ '</h4><p>' +name_and_message[x]['message']+ '</p><hr></div>')
+	return render_template('wall.html')
 
 
-@app.route('/clear')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/logout')
 def clear():
 	session.clear()
 	return redirect('/')
+
+
+
 app.run(debug=True)
