@@ -19,13 +19,13 @@ Description: Never Stop Learning
 -->
 <html>
 <head>
-	<title>The Wall</title>
+	<title>The Wall - Login and Registration</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-<!-- TOP -->
+<!-- LOGIN -->
 <div class="wrapper">
 	<div class="top">
 	<h1>The Wall</h1>
@@ -36,9 +36,9 @@ Description: Never Stop Learning
 	</form>	
 	</div>
 	<br>
-<!-- BOTTOM -->
+<!-- REGISTRATION -->
 	<div class="bottom">
-		<form class="signup" action='/process' method='POST'>
+		<form class="signup" action='/register' method='POST'>
 		<h2>Sign Up!</h2><br>
 			First Name: <input type="text" name="first_name"><br>
 			Last Name: <input type="text" name="last_name"><br>
@@ -49,9 +49,6 @@ Description: Never Stop Learning
 			<input class="btn btn-primary submits" type="submit" name="submit" value="submit">
 		</form>
 	</div>
-	<!-- <form action="clear">
-		<input type="submit" name="clear" value="reset" class="btn btn-danger submits" type="button">
-	</form> -->
 	{% with messages = get_flashed_messages() %}
 		{% if messages %}
 		  {% for message in messages %}
