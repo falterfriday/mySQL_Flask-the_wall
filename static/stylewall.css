@@ -1,18 +1,17 @@
 .wrapper {
 	display: inline-block;
-	/*border: solid lightgray 1px;*/
 	height: auto;
 	width: 100%;
 	padding-bottom: 5px;
+	overflow: hidden;
 }
 h1 {
 	text-align: left;
 	display: inline-block;
 	vertical-align: top;
-	margin: 0px 30% 0px 0px;
-}
-h4 {
-	display: inline-block;
+	height: 60px;
+	margin: 0px 35% 0px 0px;
+	float: left;
 }
 .top {
 	color: white;
@@ -23,46 +22,19 @@ h4 {
 	text-align: left;
 	overflow: hidden;
 }
-.btn-danger {
-	margin-top: -32px;
-	margin-right: 10px;
-	float: right;
-	height: 25px;
-	padding: 0 12px;
+h4 {
+	display: inline-block;
+	margin-left: 225px;
 }
-.bottom {
-	color: white;
-	background-color: #5c5c8a;
-	width: 100%;
-	padding: 10px 30px;
-	text-align: left;
-	margin-bottom: -10px;
+#logout {
+	display: inline-block;
+	float: right;
 }
 .message {
 	width: 80%;
-	/*border: solid lightgray 1px;*/
 	margin-top: 20px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 20px;
 	overflow: hidden;
-}
-.mid {
-	/*border: solid lightgray 1px;*/
-	width: 80%;
-	margin: auto;
-	overflow: hidden;
-}
-.textbox {
-	width: 100%;
-	height: auto;
-}
-p {
-	margin: 20px;
-}
-.btn-primary, .btn-success {
-	margin-top: 10px;
-	float: right;
-	height: 25px;
-	padding: 0 12px;
 }
