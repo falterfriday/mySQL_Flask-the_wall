@@ -62,37 +62,27 @@ def submit():
 
 @app.route('/wall', methods=['GET'])
 def messages():
-	print "session id is: ",session['id']
-	name_query = "SELECT first_name FROM users WHERE id = :users"
-	name_data = {
-	'users':session['id']
-	}
-	name_user = mysql.query_db(name_query,name_data)
-	name =  str(name_user[0]['first_name'])
-	name_and_message_query = "SELECT concat_ws(' ',first_name,last_name), users_id, messages.message, date_format(messages.created_at, '%M %D %Y') AS date, messages.created_at FROM users JOIN messages ON messages.users_id = users.id ORDER BY created_at DESC"
-	name_and_message = mysql.query_db(name_and_message_query)
+	query = "SELECT users.first_name, users.last_name, users_id, messages.message, messages.id, date_format(messages.created_at, '%M %D %Y @ %l:%i %p') AS date, messages.created_at FROM users JOIN messages ON messages.users_id = users.id ORDER BY created_at DESC"
+	databases = mysql.query_db(query)
+	query_comments = "SELECT *, date_format(comments.created_at, '%M %D %Y @ %l:%i %p') AS date FROM comments JOIN users ON users.id = comments.users_id"
+	comments = mysql.query_db(query_comments)
+	return render_template('wall.html', messages=databases, comments=comments)
 
-	query_message_id = "SELECT * FROM messages LEFT JOIN users ON users.id = messages.users_id LEFT JOIN comments ON comments.messages_id = messages.users_id"
-	
-
-	for x in range(0,len(name_and_message)):
-		flash('<div class="message"><h4>' +name_and_message[x]["concat_ws(' ',first_name,last_name)"]+ ' - ' +name_and_message[x]['date']+ '</h4><p>' +name_and_message[x]['message']+ '</p>Post a comment: <br><form action="/comment" method="POST"><input type="text" name="comment" class="textbox"><input type="submit" value="Post a comment" class="btn btn-success"></form><br><hr></div>')
-	return render_template('wall.html', name=name)
-
-
-@app.route('/comment', methods=['POST'])
-def comment():
-	if len(request.form['comment']) > 0:
-		comment = request.form['comment']
-		query_comment = "INSERT INTO comments (comment, created_at, updated_at, users_id, messages_id) VALUES (:comment, NOW(), NOW(), :users_id, :message_id)"
-		data_comment = {
+@app.route("/comment/<variable>", methods=['POST'])
+def comment(variable):
+	if len(request.form['text']) > 0:
+		comment = request.form['text']
+		query = "INSERT INTO comments (comment, created_at, updated_at, users_id, messages_id) VALUES (:comment, NOW(), NOW(), :users_id, :messages_id)"
+		data = {
 		'comment':comment,
 		'users_id':session['id'],
+		'messages_id': variable
 		}
-		mysql.query_db(query_comment, data_comment)
+		mysql.query_db(query, data)
 		return redirect('/wall')
 	else:
 		return redirect('/wall')
+
 
 
 
@@ -107,27 +97,9 @@ def post():
 		}
 		mysql.query_db(query_post, data)
 		return redirect('/wall')
-
+	
 	else:
 		return redirect('/wall')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 @app.route('/logout')
