@@ -29,26 +29,43 @@ Description: Never Stop Learning
 <div class="wrapper">
 	<div class="top">
 		<h1>The Wall</h1>
+		<!-- <h4>Welcome {{ name }}</h4> -->
 		<form action="/logout">
 			<input class="btn btn-danger" type="submit" name="logout" value="log off">
 		</form>
 	</div>
 <br>
-	<div class="mid">
-		<h3>Post a message</h3>
-		<form action="/post" method="POST">
-			<input class="textbox" type="text" name="message"><br>
-			<input class="btn btn-primary" type="submit" name="submit" value="post a message">
+<div id="container">
+	<div class="message">
+		<h3>Post a message:</h3>
+		<form action="/post" method='POST' id="message">
+			<textarea rows="5" cols="100" name="message" form="message"></textarea>
+			<input type="submit" value="Post a message">
 		</form>
 	</div>
-<!-- 	{% with messages = get_flashed_messages() %}
-		{% if messages %}
-		  {% for message in messages %} -->
-		    {{message | safe}}
-<!-- 		  {% endfor %}
-		{% endif %}
-	{% endwith %} -->
-
+	{% for message in messages %}
+	<div class="message">
+		<h4>{{ message['first_name'] }} {{ message['last_name'] }} - {{ message['date'] }}</h4>
+		<p>{{message['message']}}</p>
+			{% for comment in comments %} 
+				{% if comment['messages_id'] == message['id'] %}
+					<div class="comment">
+						<h4>{{comment['first_name']}} {{comment['last_name']}} {{comment['date']}}</h4>
+						<p>{{comment['comment']}}</p>
+					</div>
+				{% endif %}
+			{% endfor %}
+		<div class="comment">
+			<h4>Post a comment</h4>
+				<form action="/comment/{{ message['id'] }}" method='POST'>
+					<input type="text" name="text">
+					<br>
+					<input type="submit" value="Post a comment">
+				</form>		
+		</div>
+	</div>
+	{% endfor %}
+</div>
 <!-- FOOTER -->
 <div class="bottom"></div>
 </body>
