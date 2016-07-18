@@ -15,6 +15,7 @@ def index():
 		session['display'] = False
 	return render_template("index.html", display=session['display'])
 
+
 @app.route('/login', methods=['POST'])
 def login():
 	email = request.form['login_email']
@@ -26,11 +27,14 @@ def login():
 		flash('<div class="error">invalid credentials</div>')
 	elif bcrypt.check_password_hash(user[0]['pw_hash'], password):
 		session['id'] = user[0]['id']
+		session['first_name'] = user[0]['first_name']
 		print "your session id is:", session['id']
+		print "your name is: ",session['first_name']
 		return redirect('/wall')
 	else:
 		flash('<div class="error">invalid credentials</div>')
 	return redirect('/')
+
 
 @app.route('/register', methods=['POST'])
 def submit():
@@ -45,7 +49,7 @@ def submit():
 	elif request.form['password'] != request.form['password_conf']:
 		flash('<div class="error">passwords do not match</div>')
 	else:
-		flash('<div class="success">successful registration!</div>')
+		flash('<div class="success">successful registration!<br>you can log in now!</div>')
 		password = request.form['password']
 		pw_hash = bcrypt.generate_password_hash(password)
 		query = "INSERT INTO users (first_name, last_name, email, pw_hash, created_at, updated_at) VALUES (:first_name, :last_name, :email, :pw_hash, NOW(), NOW())"
@@ -63,10 +67,11 @@ def submit():
 @app.route('/wall', methods=['GET'])
 def messages():
 	query = "SELECT users.first_name, users.last_name, users_id, messages.message, messages.id, date_format(messages.created_at, '%M %D %Y @ %l:%i %p') AS date, messages.created_at FROM users JOIN messages ON messages.users_id = users.id ORDER BY created_at DESC"
-	databases = mysql.query_db(query)
+	database_query = mysql.query_db(query)
 	query_comments = "SELECT *, date_format(comments.created_at, '%M %D %Y @ %l:%i %p') AS date FROM comments JOIN users ON users.id = comments.users_id"
 	comments = mysql.query_db(query_comments)
-	return render_template('wall.html', messages=databases, comments=comments)
+	return render_template('wall.html', name=session['first_name'],messages=database_query, comments=comments)
+
 
 @app.route("/comment/<variable>", methods=['POST'])
 def comment(variable):
@@ -82,8 +87,6 @@ def comment(variable):
 		return redirect('/wall')
 	else:
 		return redirect('/wall')
-
-
 
 
 @app.route('/post', methods=['POST'])
@@ -106,7 +109,5 @@ def post():
 def clear():
 	session.clear()
 	return redirect('/')
-
-
 
 app.run(debug=True)
