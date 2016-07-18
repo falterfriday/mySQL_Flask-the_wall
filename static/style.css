@@ -3,22 +3,29 @@
 	height: auto;
 	width: 100%;
 	padding-bottom: 5px;
+	overflow: hidden;
 }
 h1 {
 	text-align: left;
-	display: inline;
+	display: inline-block;
 	vertical-align: top;
-	margin: 0px 30% 0px 0px;
+	height: 60px;
+	margin: 0px 35% 0px 0px;
+	float: left;
 }
 .top {
 	color: white;
 	background-color: #5c5c8a;
 	width: 100%;
-	padding: 10px 30px;
-	text-align: right;
+	height: 60px;
+	padding: 10px;
+	text-align: left;
+	overflow: hidden;
 }
-
-.bottom {
+#loginform {
+	/*border: solid black 1px;*/
+}
+.middle {
 	width: auto;
 	text-align: right;
 	padding-right: 88px;
@@ -33,11 +40,9 @@ input {
 }
 .signup {
 	color: #5c5c8a;
+	margin: 0px 24px 0px 0px;
 }
-form {
-	display: inline-block;
-	vertical-align: center;
-}
+
 .error {
 	color: white;
 	display: inline-block;
