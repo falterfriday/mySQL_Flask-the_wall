@@ -29,7 +29,7 @@ Description: Never Stop Learning
 <div class="wrapper">
 	<div class="top">
 	<h1>The Wall</h1>
-	<form action="/login" method='POST'>
+	<form action="/login" method='POST' id="loginform">
 		Email: <input type="email" name="login_email">
 		Password: <input type="password" name="login_password">
 		<input type="submit" name="wall" value="login" class="btn btn-primary">
@@ -37,7 +37,7 @@ Description: Never Stop Learning
 	</div>
 	<br>
 <!-- REGISTRATION -->
-	<div class="bottom">
+	<div class="middle">
 		<form class="signup" action='/register' method='POST'>
 		<h2>Sign Up!</h2><br>
 			First Name: <input type="text" name="first_name"><br>
