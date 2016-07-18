@@ -11,6 +11,9 @@ h1 {
 	vertical-align: top;
 	margin: 0px 30% 0px 0px;
 }
+h4 {
+	display: inline-block;
+}
 .top {
 	color: white;
 	background-color: #5c5c8a;
@@ -42,6 +45,7 @@ h1 {
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 20px;
+	overflow: hidden;
 }
 .mid {
 	/*border: solid lightgray 1px;*/
@@ -56,7 +60,7 @@ h1 {
 p {
 	margin: 20px;
 }
-.btn-primary {
+.btn-primary, .btn-success {
 	margin-top: 10px;
 	float: right;
 	height: 25px;
