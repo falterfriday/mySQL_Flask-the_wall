@@ -1,6 +1,5 @@
 .wrapper {
 	display: inline-block;
-	/*border: solid lightgray 1px;*/
 	height: auto;
 	width: 100%;
 	padding-bottom: 5px;
@@ -51,7 +50,6 @@ form {
 	display: inline-block;
 	background-color: #58b958;
 	width: 100%;
-	/*border-radius: 5px;*/
 	text-align: center;
 }
 .div {
